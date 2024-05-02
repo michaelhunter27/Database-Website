@@ -16,14 +16,38 @@ CREATE OR REPLACE TABLE Accounts (
     registration_date DATETIME NOT NULL,
     last_login DATETIME,
     active_status BOOLEAN DEFAULT 1,
-    PRIMARY KEY (accountID)
+    PRIMARY KEY (accountID),
 );
 
 -- Characters
+CREATE OR REPLACE TABLE Characters (
+    characterID INT AUTO_INCREMENT,
+    accountID INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    level INT NOT NULL,
+    classID INT,
+    guildID INT,
+    PRIMARY KEY(characterID),
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID),
+    FOREIGN KEY (classID) REFERENCES Classes(classID),
+    FOREIGN KEY (guildID) REFERENCES Guilds(guildID)
+);
 
 -- Classes
+CREATE OR REPLACE TABLE Classes (
+    classID INT AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    decsription TEXT,
+    PRIMARY KEY (classID)
+);
 
 -- Guilds
+CREATE OR REPLACE TABLE Guilds (
+    guildID INT AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    creation_date DATETIME NOT NULL,
+    PRIMARY KEY (guildID)
+);
 
 -- Hats
 
@@ -43,11 +67,39 @@ INSERT INTO Accounts
     ('maxrebo', 'maxrebo@hello.com', '829dea6c8f032e77', '2024-04-20', '2024-04-28 12:14:16', 0);
 
 -- Characters
+INSERT INTO Characters (
+    accountID, 
+    name, 
+    level, 
+    classID, 
+    guildID
+)
+VALUES 
+((SELECT accountID FROM Accounts WHERE username = 'johnsmith'), 'Player1', 50, 1, (SELECT guildID FROM Guilds WHERE name = 'Coffin Break')),
+((SELECT accountID FROM Accounts WHERE username = 'buffwizard'), 'Player2', 41, 4, NULL),
+((SELECT accountID FROM Accounts WHERE username = 'alex456'), 'Player3', 19, 3, NULL),
+((SELECT accountID FROM Accounts WHERE username = 'maxrebo'), 'Player4', 28, 2, (SELECT guildID FROM Guilds WHERE name = 'Sky Players'));
 
 -- Classes
+INSERT INTO Classes (
+    name, 
+    description
+)
+VALUES 
+('Mage', 'Cast arcane spells to disrupt your enemy and inflict immense damage'),
+('Warrior', 'Specializing in physical damage, this class is very well rounded'),
+('Rogue', 'Hiding in the shadows, this class relies on the darkness to navigate'),
+('Paladin', 'Drawing power from the light, this class allows you to both heal and deal damage');
 
 -- Guilds
-
+INSERT INTO Guilds (
+    name
+)
+VALUES 
+('Sky Players'),
+('Coffin Break'),
+('Deadly Empire'),
+('Guild Mesh');
 -- Hats
 
 -- Characters_Hats
