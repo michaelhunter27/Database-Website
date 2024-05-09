@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> 
+        <a href="accounts.html">Accounts</a> 
+        <a href="characters.html">Characters</a> 
+        <a href="guilds.html">Guilds</a> 
+        <a href="classes.html">Classes</a> 
+        <a href="hats.html">Hats</a>
+    </nav>
+
+    <h1>Characters</h1>
+    <table>
+        <tr>
+            <th>Character ID</th>
+            <th>Account ID</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Class ID</th>
+            <th>Guild ID</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>Player1</td>
+            <td>50</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2</td>
+            <td>Player2</td>
+            <td>41</td>
+            <td>4</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>3</td>
+            <td>Player3</td>
+            <td>19</td>
+            <td>3</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>4</td>
+            <td>Player4</td>
+            <td>28</td>
+            <td>2</td>
+            <td>2</td>
+        </tr>
+        
+    </table>
+
+    <form action="add_character.php" method="post">
+        <fieldset>
+            <legend>Add New Character</legend>
+            <p>
+                <label for="accountID">Account ID:</label>
+                <input type="text" id="accountID" name="accountID">
+            </p>
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </p>
+            <p>
+                <label for="level">Level:</label>
+                <input type="text" id="level" name="level">
+            </p>
+            <p>
+                <label for="classID">Class ID:</label>
+                <input type="text" id="classID" name="classID">
+            </p>
+            <p>
+                <label for="guildID">Guild ID:</label>
+                <input type="text" id="guildID" name="guildID">
+            </p>
+            <button type="submit">Add Character</button>
+        </fieldset>
+    </form>
+</body>
+</html>

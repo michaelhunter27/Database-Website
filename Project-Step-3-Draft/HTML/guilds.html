@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilds</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> 
+        <a href="accounts.html">Accounts</a> 
+        <a href="characters.html">Characters</a> 
+        <a href="guilds.html">Guilds</a> 
+        <a href="classes.html">Classes</a> 
+        <a href="hats.html">Hats</a>
+    </nav>
+
+    <h1>Guilds</h1>
+    <table>
+        <tr>
+            <th>Guild ID</th>
+            <th>Name</th>
+            <th>Creation Date</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Sky Players</td>
+            <td>2024-02-19</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Coffin Break</td>
+            <td>2024-04-21</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Deadly Empire</td>
+            <td>2023-12-24</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Guild Mesh</td>
+            <td>2024-11-09</td>
+        </tr>
+    </table>
+
+    <form action="add_guild.php" method="post">
+        <fieldset>
+            <legend>Add New Guild</legend>
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </p>
+            <p>
+                <label for="creation_date">Creation Date:</label>
+                <input type="text" id="creation_date" name="creation_date">
+            </p>
+            <button type="submit">Add Guild</button>
+        </fieldset>
+    </form>
+</body>
+</html>
