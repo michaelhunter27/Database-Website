@@ -116,13 +116,14 @@ VALUES
 
 -- Guilds
 INSERT INTO Guilds (
-    name
+    name,
+    creation_date
 )
 VALUES 
-('Sky Players'),
-('Coffin Break'),
-('Deadly Empire'),
-('Guild Mesh');
+('Sky Players', "2024-02-19"),
+('Coffin Break', "2024-04-21"),
+('Deadly Empire', "2023-12-24"),
+('Guild Mesh', "2024-11-09");
 
 -- Hats
 INSERT INTO Hats (
