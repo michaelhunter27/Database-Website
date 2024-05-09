@@ -9,28 +9,14 @@ SET AUTOCOMMIT = 0;
 
 -- Accounts
 CREATE OR REPLACE TABLE Accounts (
-    accountID INT(11) AUTO_INCREMENT,
+    accountID INT AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
-    registration_date DATETIME NOT NULL,
+    registration_date DATE NOT NULL,
     last_login DATETIME,
     active_status BOOLEAN DEFAULT 1,
     PRIMARY KEY (accountID)
-);
-
--- Characters
-CREATE OR REPLACE TABLE Characters (
-    characterID INT AUTO_INCREMENT,
-    accountID INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    level INT NOT NULL,
-    classID INT,
-    guildID INT,
-    PRIMARY KEY(characterID),
-    FOREIGN KEY (accountID) REFERENCES Accounts(accountID),
-    FOREIGN KEY (classID) REFERENCES Classes(classID),
-    FOREIGN KEY (guildID) REFERENCES Guilds(guildID)
 );
 
 -- Classes
@@ -45,8 +31,28 @@ CREATE OR REPLACE TABLE Classes (
 CREATE OR REPLACE TABLE Guilds (
     guildID INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    creation_date DATETIME NOT NULL,
+    creation_date DATE NOT NULL,
     PRIMARY KEY (guildID)
+);
+
+-- Characters
+CREATE OR REPLACE TABLE Characters (
+    characterID INT AUTO_INCREMENT,
+    accountID INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    level INT NOT NULL,
+    classID INT,
+    guildID INT,
+    PRIMARY KEY(characterID),
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID)
+        ON DELETE CASCADE,
+        -- Delete the character if its account is deleted
+    FOREIGN KEY (classID) REFERENCES Classes(classID)
+        ON DELETE SET NULL,
+        -- If the character's guild is deleted, set guildID to NULL
+    FOREIGN KEY (guildID) REFERENCES Guilds(guildID)
+        ON DELETE SET NULL
+        -- If the character's class is deleted, set classID to NULL
 );
 
 -- Hats
@@ -59,15 +65,18 @@ CREATE OR REPLACE TABLE Hats (
     PRIMARY KEY (hatID)
 );
 
-
 -- Caracters_Hats
 CREATE OR REPLACE TABLE Characters_Hats (
     character_hatID INT AUTO_INCREMENT,
     characterID INT,
     hatID INT,
     PRIMARY KEY (character_hatID),
-    FOREIGN KEY (characterID) REFERENCES Characters(characterID),
+    FOREIGN KEY (characterID) REFERENCES Characters(characterID)
+        ON DELETE CASCADE,
+        -- If a character is deleted, delete rows associated with is
     FOREIGN KEY (hatID) REFERENCES Hats(hatID)
+        ON DELETE CASCADE
+        -- If a hat is deleted, delete rows associated with it
 );
 
 
@@ -89,20 +98,6 @@ VALUES
 ('alex456', 'alexgonzalez@hello.com', '92bae74f01ee87a7', '2024-03-02', '2024-05-01 09:38:27', 1),
 ('maxrebo', 'maxrebo@hello.com', '829dea6c8f032e77', '2024-04-20', '2024-04-28 12:14:16', 0);
 
--- Characters
-INSERT INTO Characters (
-    accountID, 
-    name, 
-    level, 
-    classID, 
-    guildID
-)
-VALUES 
-((SELECT accountID FROM Accounts WHERE username = 'johnsmith'), 'Player1', 50, 1, (SELECT guildID FROM Guilds WHERE name = 'Coffin Break')),
-((SELECT accountID FROM Accounts WHERE username = 'buffwizard'), 'Player2', 41, 4, NULL),
-((SELECT accountID FROM Accounts WHERE username = 'alex456'), 'Player3', 19, 3, NULL),
-((SELECT accountID FROM Accounts WHERE username = 'maxrebo'), 'Player4', 28, 2, (SELECT guildID FROM Guilds WHERE name = 'Sky Players'));
-
 -- Classes
 INSERT INTO Classes (
     name, 
@@ -116,13 +111,27 @@ VALUES
 
 -- Guilds
 INSERT INTO Guilds (
-    name
+    name, creation_date
 )
 VALUES 
-('Sky Players'),
-('Coffin Break'),
-('Deadly Empire'),
-('Guild Mesh');
+('Sky Players', '2024-01-01'),
+('Coffin Break', '2024-02-02'),
+('Deadly Empire', '2024-03-03'),
+('Guild Mesh', '2024-04-04');
+
+-- Characters
+INSERT INTO Characters (
+    accountID, 
+    name, 
+    level, 
+    classID, 
+    guildID
+)
+VALUES 
+((SELECT accountID FROM Accounts WHERE username = 'johnsmith'), 'Player1', 50, 1, (SELECT guildID FROM Guilds WHERE name = 'Coffin Break')),
+((SELECT accountID FROM Accounts WHERE username = 'buffwizard'), 'Player2', 41, 4, NULL),
+((SELECT accountID FROM Accounts WHERE username = 'alex456'), 'Player3', 19, 3, NULL),
+((SELECT accountID FROM Accounts WHERE username = 'maxrebo'), 'Player4', 28, 2, (SELECT guildID FROM Guilds WHERE name = 'Sky Players'));
 
 -- Hats
 INSERT INTO Hats (
