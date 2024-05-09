@@ -16,15 +16,17 @@
         <a href="hats.html">Hats</a>
     </nav>
 
+    <h1>Accounts</h1>
+
     <table>
         <tr>
-            <th>accountID</th>
-            <th>username</th>
-            <th>email</th>
-            <th>hashed_password</th>
-            <th>registration_date</th>
-            <th>last_login</th>
-            <th>active_status</th>
+            <th>Account ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Hashed Password</th>
+            <th>Registration Date</th>
+            <th>Last Login</th>
+            <th>Active Status</th>
         </tr>
         <tr>
             <td>1</td>
@@ -68,24 +70,24 @@
         <fieldset>
             <legend>Add Account</legend>
             <p>
-                <label>username:</label>
-                <input type="text">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
             </p>
             <p>
-                <label>email:</label>
-                <input type="text">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
             </p>
             <p>
-                <label>hashed password:</label>
-                <input type="text">
+                <label for="hashed-password">Hashed Password:</label>
+                <input type="text" id="hashed-password" name="hashed-password">
             </p>
             <p>
-                <label>registration date:</label>
-                <input type="text">
+                <label for="registration-date">Registration Date:</label>
+                <input type="date" id="registration-date" name="registration-date">
             </p>
             <p>
-                <label>last login:</label>
-                <input>
+                <label>Last Login:</label>
+                <input type="datetime-local" id="last-login" name="last-login">
             </p>
             <button>Add</button>
         </fieldset>

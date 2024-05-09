@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> 
+        <a href="accounts.html">Accounts</a> 
+        <a href="characters.html">Characters</a> 
+        <a href="guilds.html">Guilds</a> 
+        <a href="classes.html">Classes</a> 
+        <a href="hats.html">Hats</a>
+    </nav>
+
+    <h1>Hats</h1>
+
+    <table>
+        <tr>
+            <th>Hat ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Rarity</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Pointy Wizard Hat</td> 
+            <td>Standard headwear for the magically inclined.</td>
+            <td>Common</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Pirate Bandana</td> 
+            <td>Perfect for a seafaring scallywag, this will keep the 
+                hair out of your face as you loot and plunder.</td>
+            <td>Uncommon</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Helm of Arcandor</td> 
+            <td>The helmet of the battlemage Arcandor still hums with magical energy.</td>
+            <td>Legendary</td>
+            <td>10000</td>
+        </tr>
+    </table>
+
+    <form>
+        <fieldset>
+            <legend>Add Hat</legend>
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </p>
+            <p>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+            </p>
+            <p>
+                <label for="rarity">Rarity:</label>
+                <input type="text" id="rarity" name="rarity">
+            </p>
+            <p>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price">
+            </p>
+            <button>Add</button>
+        </fieldset>
+    </form>
+
+    <h2>Character Hat Intersection Table</h2>
+
+    <table>
+        <tr>
+            <th>Character Hat ID</th>
+            <th>Character ID</th>
+            <th>Hat ID</th>
+            <th>Delete</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td><button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2</td>
+            <td>2</td>
+            <td><button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>3</td>
+            <td>1</td>
+            <td><button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>1</td>
+            <td>3</td>
+            <td><button>Delete</button></td>
+        </tr>
+    </table>
+
+    <form>
+        <fieldset>
+            <legend>Add Hat to Character</legend>
+            <p>
+                <label for="character">Character:</label>
+                <select id="character" name="character">
+                    <option value="">choose a character</option>
+                    <option value="1">Player1</option>
+                    <option value="2">Player2</option>
+                    <option value="3">Player3</option>
+                    <option value="4">Player4</option>
+                </select>
+            </p>
+            <p>
+                <label for="hat">Description:</label>
+                <select id="hat" name="hat">
+                    <option value="0">choose a hat</option>
+                    <option value="1">Pointy Wizard Hat</option>
+                    <option value="2">Pirate Bandana</option>
+                    <option value="3">Helm of Arcandor</option>
+                </select>
+            </p>
+            <button>Add</button>
+        </fieldset>
+    </form>
+
+</body>
+</html>
