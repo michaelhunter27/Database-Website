@@ -14,6 +14,29 @@
 
         function editCharacter(characterID) {
             console.log("Editing character with ID:", characterID);
+            // Simulate autofilling based on character ID
+            const character = findCharacterById(characterID);
+            if (character) {
+                document.getElementById("characterID").value = character.characterID;
+                document.getElementById("accountName").value = character.accountName;
+                document.getElementById("name").value = character.name;
+                document.getElementById("level").value = character.level;
+                document.getElementById("className").value = character.className;
+                document.getElementById("guildName").value = character.guildName;
+            } else {
+                alert("Character with ID " + characterID + " not found!");
+            }
+        }
+
+        function findCharacterById(characterID) {
+            // This is a mock function to simulate fetching character data from a database or server
+            const characters = [
+                { characterID: 1, accountName: "johnsmith", name: "Player1", level: 50, className: "Mage", guildName: "Sky Players" },
+                { characterID: 2, accountName: "buffwizard", name: "Player2", level: 41, className: "Paladin", guildName: "N/A" },
+                { characterID: 3, accountName: "alex456", name: "Player3", level: 19, className: "Rogue", guildName: "N/A" },
+                { characterID: 4, accountName: "maxrebo", name: "Player4", level: 28, className: "Warrior", guildName: "Coffin Break" }
+            ];
+            return characters.find(character => character.characterID === characterID);
         }
     </script>
 </head>
@@ -31,19 +54,19 @@
     <table>
         <tr>
             <th>Character ID</th>
-            <th>Account ID</th>
-            <th>Name</th>
+            <th>Account Name</th>
+            <th>Character Name</th>
             <th>Level</th>
-            <th>Class ID</th>
-            <th>Guild ID</th>
+            <th>Class Name</th>
+            <th>Guild Name</th>
         </tr>
         <tr>
             <td>1</td>
-            <td>1</td>
+            <td>johnsmith</td>
             <td>Player1</td>
             <td>50</td>
-            <td>1</td>
-            <td>1</td>
+            <td>Mage</td>
+            <td>Sky Players</td>
             <td>
                 <button onclick="editCharacter(1)">Edit</button>
                 <button onclick="deleteCharacter(1)">Delete</button>
@@ -51,10 +74,10 @@
         </tr>
         <tr>
             <td>2</td>
-            <td>2</td>
+            <td>buffwizard</td>
             <td>Player2</td>
             <td>41</td>
-            <td>4</td>
+            <td>Paladin</td>
             <td>N/A</td>
             <td>
                 <button onclick="editCharacter(2)">Edit</button>
@@ -63,10 +86,10 @@
         </tr>
         <tr>
             <td>3</td>
-            <td>3</td>
+            <td>alex456</td>
             <td>Player3</td>
             <td>19</td>
-            <td>3</td>
+            <td>Rogue</td>
             <td>N/A</td>
             <td>
                 <button onclick="editCharacter(3)">Edit</button>
@@ -75,11 +98,11 @@
         </tr>
         <tr>
             <td>4</td>
-            <td>4</td>
+            <td>maxrebo</td>
             <td>Player4</td>
             <td>28</td>
-            <td>2</td>
-            <td>2</td>
+            <td>Warrior</td>
+            <td>Coffin Break</td>
             <td>
                 <button onclick="editCharacter(4)">Edit</button>
                 <button onclick="deleteCharacter(4)">Delete</button>
@@ -87,17 +110,17 @@
         </tr>
     </table>
 
-    <div id="updateCharacterForm" style="display: none;">
+    <div id="updateCharacterForm">
         <form action="update_character.php" method="post">
             <fieldset>
                 <legend>Update Character</legend>
                 <p>
                     <label for="characterID">Character ID:</label>
-                    <input type="text" id="characterID" name="characterID" readonly>
+                    <input type="text" id="characterID" name="characterID">
                 </p>
                 <p>
-                    <label for="accountID">Account ID:</label>
-                    <input type="text" id="accountID" name="accountID">
+                    <label for="accountName">Account Name:</label>
+                    <input type="text" id="accountName" name="accountName">
                 </p>
                 <p>
                     <label for="name">Name:</label>
@@ -108,13 +131,14 @@
                     <input type="text" id="level" name="level">
                 </p>
                 <p>
-                    <label for="classID">Class ID:</label>
-                    <input type="text" id="classID" name="classID">
+                    <label for="className">Class Name:</label>
+                    <input type="text" id="className" name="className">
                 </p>
                 <p>
-                    <label for="guildID">Guild ID:</label>
-                    <input type="text" id="guildID" name="guildID">
+                    <label for="guildName">Guild Name:</label>
+                    <input type="text" id="guildName" name="guildName">
                 </p>
+                <button type="button" onclick="editCharacter(document.getElementById('characterID').value)">Autofill Character Data</button>
                 <button type="submit">Update Character</button>
             </fieldset>
         </form>
@@ -124,11 +148,11 @@
         <fieldset>
             <legend>Add New Character</legend>
             <p>
-                <label for="accountID">Account ID:</label>
-                <input type="text" id="accountID" name="accountID">
+                <label for="accountName">Account Name:</label>
+                <input type="text" id="accountName" name="accountName">
             </p>
             <p>
-                <label for="name">Name:</label>
+                <label for="name">Character Name:</label>
                 <input type="text" id="name" name="name">
             </p>
             <p>
@@ -136,12 +160,12 @@
                 <input type="text" id="level" name="level">
             </p>
             <p>
-                <label for="classID">Class ID:</label>
-                <input type="text" id="classID" name="classID">
+                <label for="className">Class Name:</label>
+                <input type="text" id="className" name="className">
             </p>
             <p>
-                <label for="guildID">Guild ID:</label>
-                <input type="text" id="guildID" name="guildID">
+                <label for="guildName">Guild Name:</label>
+                <input type="text" id="guildName" name="guildName">
             </p>
             <button type="submit">Add Character</button>
         </fieldset>
