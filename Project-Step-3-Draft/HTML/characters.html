@@ -85,11 +85,12 @@
     <table>
         <tr>
             <th>Character ID</th>
-            <th>Account Name</th>
+            <th>Account Username</th>
             <th>Character Name</th>
             <th>Level</th>
-            <th>Class Name</th>
-            <th>Guild Name</th>
+            <th>Class</th>
+            <th>Guild</th>
+            <th>Edit/Delete</th>
         </tr>
         <tr>
             <td>1</td>
@@ -191,6 +192,12 @@
                         <option value="Guild Mesh">Guild Mesh</option>
                     </select>
                 </p>
+                <p>
+                    <label>Hats</label>
+                    <input type="checkbox">Pointy Wizard Hat </br>
+                    <input type="checkbox">Pirate Bandana </br>
+                    <input type="checkbox">Helm of Arcandor
+                </p>
                 <button type="button" onclick="editCharacter(document.getElementById('characterID').value)">Autofill Character Data</button>
                 <button type="submit">Update Character</button>
             </fieldset>
@@ -202,21 +209,47 @@
             <legend>Add New Character</legend>
             <p>
                 <label for="accountName">Account Name:</label>
-                <input type="text" id="accountName" name="accountName">
+                <select id="accountName" name="accountName">
+                    <option value="johnsmith">johnsmith</option>
+                    <option value="buffwizard">buffwizard</option>
+                    <option value="alex456">alex456</option>
+                    <option value="maxrebo">maxrebo</option>
+                </select>
             </p>
             <p>
-                <label for="name">Character Name:</label>
+                <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
             </p>
             <p class="level-wrapper">
                 <label for="level">Level:</label>
+                <button type="button" class="level-button" onclick="decreaseLevel()">-</button>
                 <input type="text" id="level" name="level">
+                <button type="button" class="level-button" onclick="increaseLevel()">+</button>
             </p>
             <p>
                 <label for="className">Class Name:</label>
-                <input type="text" id="className" name="className">
+                <select id="className" name="className">
+                    <option value="Mage">Mage</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Paladin">Paladin</option>
+                </select>
             </p>
             <p>
                 <label for="guildName">Guild Name:</label>
-                <input type="text" id="guildName" name="guildName">
-            </p
+                <select id="guildName" name="guildName">
+                    <option value="Sky Players">Sky Players</option>
+                    <option value="Coffin Break">Coffin Break</option>
+                    <option value="Deadly Empire">Deadly Empire</option>
+                    <option value="Guild Mesh">Guild Mesh</option>
+                </select>
+            </p>
+            <p>
+                <label>Hats</label>
+                <input type="checkbox">Pointy Wizard Hat </br>
+                <input type="checkbox">Pirate Bandana </br>
+                <input type="checkbox">Helm of Arcandor
+            </p>
+        </fieldset>
+    </form>
+</body>
