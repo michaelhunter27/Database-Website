@@ -1,0 +1,57 @@
+body {
+    background-color: honeydew;
+    color: black;
+}
+
+table {
+    background-color: honeydew;
+}
+  
+th, td{
+    border: 1px solid black;
+    padding: 0px 10px;
+}
+  
+th {
+    background: #999999;
+    color: black;
+}
+  
+tr:nth-child(odd) td{
+    background: #bbbbbb;
+}
+  
+tr:nth-child(even) td{
+    background: #dddddd;
+}
+
+form {
+    display: table;
+    width: fit-content;
+}
+
+form p {
+    display: table-row;
+}
+
+form label, form input {
+    display: table-cell;
+}
+
+nav {
+    margin: 10px;
+}
+
+nav a:link, a:visited {
+    padding: 3px;
+    background: #bbbbbb;
+    border: 1px solid black;
+    color:black;
+}
+
+nav a:hover {
+    padding: 3px;
+    background: #dddddd;
+    border: 1px solid black;
+    color: black;
+}
