@@ -5,26 +5,13 @@
         <th>Name</th>
         <th>Description</th>
     </tr>
+    {{#each classes}}
     <tr>
-        <td>1</td>
-        <td>Mage</td>
-        <td>Cast arcane spells to disrupt your enemy and inflict immense damage</td>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{description}}</td>
     </tr>
-    <tr>
-        <td>2</td>
-        <td>Warrior</td>
-        <td>Specializing in physical damage, this class is very well rounded</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Rogue</td>
-        <td>Hiding in the shadows, this class relies on the darkness to navigate</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Paladin</td>
-        <td>Drawing power from the light, this class allows you to both heal and deal damage</td>
-    </tr>
+    {{/each}}
 </table>
 
 <form method="post" action="/classes/add">
