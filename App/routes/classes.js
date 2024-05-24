@@ -36,30 +36,38 @@ router.post('/add', (req, res) => {
 });
 
 // UPDATE class
-router.post('/update/:id', (req, res) => {
-    const { id } = req.params;
-    const { name, description } = req.body;
-    const query = 'UPDATE Classes SET name = ?, description = ? WHERE id = ?';
-    db.query(query, [name, description, id], (error, result) => {
+router.put('/update', (req, res) => {
+    const { classID, name, description } = req.body;
+    const query = 'UPDATE Classes SET name = ?, description = ? WHERE classID = ?';
+    db.query(query, [name, description, classID], (error, result) => {
         if (error) {
             console.error('Error updating class:', error);
             res.status(500).send('Internal Server Error');
         } else {
-            res.redirect('/classes');
+            query2 = 'SELECT * FROM Classes WHERE classID = ?'
+            db.query(query2, [classID], (error, result) => {
+                if (error) {
+                    console.error('Error updating class:', error);
+                    res.status(500).send('Internal Server Error');
+                }
+                else {
+                    res.send(result);
+                }
+            })
         }
     });
 });
 
 // DELETE class
-router.post('/delete/:id', (req, res) => {
-    const { id } = req.params;
-    const query = 'DELETE FROM Classes WHERE id = ?';
-    db.query(query, [id], (err, result) => {
+router.delete('/delete', (req, res) => {
+    const { id } = req.body;
+    const query = 'DELETE FROM Classes WHERE classID = ?';
+    db.query(query, [id], (error, result) => {
         if (error) {
             console.error('Error deleting class:', error);
             res.status(500).send('Internal Server Error');
         } else {
-            res.redirect('/classes');
+            res.sendStatus(204);
         }
     });
 });

@@ -1,15 +1,17 @@
 <h1>Classes</h1>
-<table>
+<table id="class-table">
     <tr>
         <th>Class ID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Delete</th>
     </tr>
     {{#each classes}}
-    <tr>
-        <td>{{id}}</td>
-        <td>{{name}}</td>
-        <td>{{description}}</td>
+    <tr class-id="{{this.classID}}">
+        <td>{{this.classID}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td><button onclick="deleteClass({{this.classID}})">Delete</button></td>
     </tr>
     {{/each}}
 </table>
@@ -28,3 +30,30 @@
         <button type="submit">Add Class</button>
     </fieldset>
 </form>
+
+
+<form id="update-class-form">
+    <fieldset>
+        <legend>Update Class</legend>
+        <p>
+            <label for="update-class-id">Class:</label>
+            <select id="update-class-id" name="classID">
+                {{#each classes}}
+                <option value="{{this.classID}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+        </p>
+        <p>
+            <label for="update-class-name">Name:</label>
+            <input type="text" id="update-class-name" name="name">
+        </p>
+        <p>
+            <label for="update-class-description">Description:</label>
+            <textarea id="update-class-description" name="description"></textarea>
+        </p>
+        <input type="submit">
+    </fieldset>
+</form>
+
+<script src="./js/update_class.js"></script>
+<script src="./js/delete_class.js"></script>
