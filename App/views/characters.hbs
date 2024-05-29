@@ -1,6 +1,5 @@
-
 <h1>Characters</h1>
-<table>
+<table id="character-table">
     <tr>
         <th>Character ID</th>
         <th>Account Username</th>
@@ -10,164 +9,128 @@
         <th>Guild</th>
         <th>Edit/Delete</th>
     </tr>
-    <tr>
-        <td>1</td>
-        <td>johnsmith</td>
-        <td>Player1</td>
-        <td>50</td>
-        <td>Mage</td>
-        <td>Sky Players</td>
+    {{#each characters}}
+    <tr character-id="{{this.characterID}}">
+        <td>{{this.characterID}}</td>
+        <td>{{this.username}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.level}}</td>
+        <td>{{this.class}}</td>
+        <td>{{this.guild}}</td>
         <td>
-            <button onclick="editCharacter(1)">Edit</button>
-            <button onclick="deleteCharacter(1)">Delete</button>
+            <button onclick="editCharacter({{this.characterID}})">Edit</button>
+            <button onclick="deleteCharacter({{this.characterID}})">Delete</button>
         </td>
     </tr>
-    <tr>
-        <td>2</td>
-        <td>buffwizard</td>
-        <td>Player2</td>
-        <td>41</td>
-        <td>Paladin</td>
-        <td>N/A</td>
-        <td>
-            <button onclick="editCharacter(2)">Edit</button>
-            <button onclick="deleteCharacter(2)">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>alex456</td>
-        <td>Player3</td>
-        <td>19</td>
-        <td>Rogue</td>
-        <td>N/A</td>
-        <td>
-            <button onclick="editCharacter(3)">Edit</button>
-            <button onclick="deleteCharacter(3)">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>maxrebo</td>
-        <td>Player4</td>
-        <td>28</td>
-        <td>Warrior</td>
-        <td>Coffin Break</td>
-        <td>
-            <button onclick="editCharacter(4)">Edit</button>
-            <button onclick="deleteCharacter(4)">Delete</button>
-        </td>
-    </tr>
+    {{/each}}
 </table>
 
-<div id="updateCharacterForm">
-    <form method="post">
+<div id="update-character-form">
+    <form>
         <fieldset>
             <legend>Update Character</legend>
             <p>
-                <label for="characterID">Character ID:</label>
-                <select id="characterID" name="characterID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <label for="update-character-id">Character:</label>
+                <select id="update-character-id" name="characterID">
+                    {{#each characters}}
+                        <option value="{{this.characterID}}">{{this.name}}</option>
+                    {{/each}}
                 </select>
             </p>
             <p>
-                <label for="accountName">Account Name:</label>
-                <select id="accountName" name="accountName">
-                    <option value="johnsmith">johnsmith</option>
-                    <option value="buffwizard">buffwizard</option>
-                    <option value="alex456">alex456</option>
-                    <option value="maxrebo">maxrebo</option>
+                <label for="update-character-account">Account Name:</label>
+                <select id="update-character-account" name="accountID">
+                    {{#each accounts}}
+                        <option value="{{this.accountID}}">{{this.username}}</option>
+                    {{/each}}
                 </select>
             </p>
             <p>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
-            </p>
-            <p class="level-wrapper">
-                <label for="level">Level:</label>
-                <button type="button" class="level-button" onclick="decreaseLevel()">-</button>
-                <input type="text" id="level" name="level">
-                <button type="button" class="level-button" onclick="increaseLevel()">+</button>
+                <label for="update-character-name">Name:</label>
+                <input type="text" id="update-character-name" name="name">
             </p>
             <p>
-                <label for="className">Class Name:</label>
-                <select id="className" name="className">
-                    <option value="Mage">Mage</option>
-                    <option value="Warrior">Warrior</option>
-                    <option value="Rogue">Rogue</option>
-                    <option value="Paladin">Paladin</option>
+                <label for="update-character-level">Level:</label>
+                <input type="number" id="update-character-level" name="level">
+            </p>
+            <p>
+                <label for="update-character-class">Class Name:</label>
+                <select id="update-character-class" name="classID">
+                    <option value="NULL">None</option>
+                    {{#each classes}}
+                        <option value="{{this.classID}}">{{this.name}}</option>
+                    {{/each}}
                 </select>
             </p>
             <p>
-                <label for="guildName">Guild Name:</label>
-                <select id="guildName" name="guildName">
-                    <option value="Sky Players">Sky Players</option>
-                    <option value="Coffin Break">Coffin Break</option>
-                    <option value="Deadly Empire">Deadly Empire</option>
-                    <option value="Guild Mesh">Guild Mesh</option>
+                <label for="update-character-guild">Guild Name:</label>
+                <select id="update-character-guild" name="guildID">
+                    <option value="NULL">None</option>
+                    {{#each guilds}}
+                        <option value="{{this.guildID}}">{{this.name}}</option>
+                    {{/each}}
                 </select>
             </p>
             <p>
-                <label>Hats</label>
-                <input type="checkbox">Pointy Wizard Hat </br>
-                <input type="checkbox">Pirate Bandana </br>
-                <input type="checkbox">Helm of Arcandor
+                <label for="update-character-hats">Hats</label>
+                {{#each hats}}
+                    <input type="checkbox" id="update-character-hats" name="update-character-hats" value="{{this.hatID}}">
+                    {{this.name}}</br>
+                {{/each}}
             </p>
-            <button type="button" onclick="editCharacter(document.getElementById('characterID').value)">Autofill Character Data</button>
             <button type="submit">Update Character</button>
         </fieldset>
     </form>
 </div>
 
-<form method="post">
+<form id="add-character-form" method="post" action="/characters/add">
     <fieldset>
         <legend>Add New Character</legend>
         <p>
-            <label for="accountName">Account Name:</label>
-            <select id="accountName" name="accountName">
-                <option value="johnsmith">johnsmith</option>
-                <option value="buffwizard">buffwizard</option>
-                <option value="alex456">alex456</option>
-                <option value="maxrebo">maxrebo</option>
+            <label for="add-character-account">Account Name:</label>
+            <select id="add-character-account" name="accountID">
+                {{#each accounts}}
+                    <option value="{{this.accountID}}">{{this.username}}</option>
+                {{/each}}
             </select>
         </p>
         <p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-        </p>
-        <p class="level-wrapper">
-            <label for="level">Level:</label>
-            <button type="button" class="level-button" onclick="decreaseLevel()">-</button>
-            <input type="text" id="level" name="level">
-            <button type="button" class="level-button" onclick="increaseLevel()">+</button>
+            <label for="add-character-name">Name:</label>
+            <input type="text" id="add-character-name" name="name">
         </p>
         <p>
-            <label for="className">Class Name:</label>
-            <select id="className" name="className">
-                <option value="Mage">Mage</option>
-                <option value="Warrior">Warrior</option>
-                <option value="Rogue">Rogue</option>
-                <option value="Paladin">Paladin</option>
+            <label for="add-character-level">Level:</label>
+            <input type="number" id="add-character-level" name="level">
+        </p>
+        <p>
+            <label for="add-character-class">Class Name:</label>
+            <select id="add-character-class" name="classID">
+                <option value="NULL">None</option>
+                {{#each classes}}
+                    <option value="{{this.classID}}">{{this.name}}</option>
+                {{/each}}
+                
             </select>
         </p>
         <p>
-            <label for="guildName">Guild Name:</label>
-            <select id="guildName" name="guildName">
-                <option value="Sky Players">Sky Players</option>
-                <option value="Coffin Break">Coffin Break</option>
-                <option value="Deadly Empire">Deadly Empire</option>
-                <option value="Guild Mesh">Guild Mesh</option>
+            <label for="add-character-guild">Guild Name:</label>
+            <select id="add-character-guild" name="guildID">
+                <option value="NULL">None</option>
+                {{#each guilds}}
+                    <option value="{{this.guildID}}">{{this.name}}</option>
+                {{/each}}
             </select>
         </p>
         <p>
-            <label>Hats</label>
-            <input type="checkbox">Pointy Wizard Hat </br>
-            <input type="checkbox">Pirate Bandana </br>
-            <input type="checkbox">Helm of Arcandor
+                <label for="add-character-hats">Hats</label>
+                {{#each hats}}
+                    <input type="checkbox" id="add-character-hats" name="add-character-hats" value="{{this.hatID}}">
+                    {{this.name}}</br>
+                {{/each}}
         </p>
         <button>Add Character</button>
     </fieldset>
 </form>
+
+<script src="./js/update_character.js"></script>
+<script src="./js/delete_character.js"></script>

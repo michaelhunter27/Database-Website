@@ -38,6 +38,9 @@ const db = require('./database/db-connector')
 const classRoutes = require('./routes/classes');
 app.use('/classes', classRoutes);
 
+const characterRoutes = require('./routes/characters');
+app.use('/characters', characterRoutes);
+
 /*
   ROUTES
 */
@@ -51,23 +54,16 @@ app.get('/accounts', function (req, res) {
     res.render('accounts');
 });
 
-app.get('/characters', function (req, res) {
-    res.render('characters');
-});
 
 app.get('/guilds', function (req, res) {
     res.render('guilds');
 });
 
-app.get('/classes', function (req, res) {
-    res.render('classes');
-});
 
 app.get('/hats', function (req, res) {
     res.render('hats');
 });
 
-// POST, PUT, DELETE ROUTES
 
 /*
     LISTENER
