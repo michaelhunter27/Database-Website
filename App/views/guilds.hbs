@@ -4,30 +4,46 @@
         <th>Guild ID</th>
         <th>Name</th>
         <th>Creation Date</th>
+        <th>Actions</th>
     </tr>
-    <tr>
-        <td>1</td>
-        <td>Sky Players</td>
-        <td>2024-01-01</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Coffin Break</td>
-        <td>2024-02-02</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Deadly Empire</td>
-        <td>2023-03-03</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Guild Mesh</td>
-        <td>2024-04-04</td>
-    </tr>
+    {{#each guilds}}
+    <tr guild-id="{{this.guildID}}"></tr>
+        <td>{{this.guildID}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.creation_date}}</td>
+        <td>
+            <button onclick="editGuild({{this.guildID}})">Edit</button>
+            <button onclick="deleteGuild({{this.guildID}})">Delete</button>
+        </td>
+    {{/each}}
 </table>
 
-<form method="post">
+<div id="update-guild-form">
+    <form>
+        <fieldset>
+            <legend>Update Guild</legend>
+            <p>
+                <label for="update-guild-id">Guild ID:</label>
+                <select id="update-guild-id" name="guildID">
+                    {{#each guilds}}
+                        <option value="{{this.guildID}}">{{this.guildID}}</option>
+                    {{/each}}
+                </select>
+            </p>
+            <p>
+                <label for="update-guild-name">Guild Name:</label>
+                <select id="update-guild-name" name="Name">
+                    {{#each guilds}}
+                        <option value ="{{this.name}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </p>
+            <button type="submit">Update Guild</button>
+        </fieldset>
+    </form>
+</div>
+
+<form method="post" action="/guilds/add"></form>
     <fieldset>
         <legend>Add New Guild</legend>
         <p>
@@ -36,7 +52,7 @@
         </p>
         <p>
             <label for="creation_date">Creation Date:</label>
-            <input type="text" id="creation_date" name="creation_date">
+            <input type="date" id="creation_date" name="creation_date">
         </p>
         <button type="submit">Add Guild</button>
     </fieldset>

@@ -45,7 +45,7 @@ CREATE OR REPLACE TABLE Classes (
 CREATE OR REPLACE TABLE Guilds (
     guildID INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    creation_date DATETIME NOT NULL,
+    creation_date DATE NOT NULL,
     PRIMARY KEY (guildID)
 );
 

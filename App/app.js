@@ -41,6 +41,9 @@ app.use('/classes', classRoutes);
 const characterRoutes = require('./routes/characters');
 app.use('/characters', characterRoutes);
 
+const guildRoutes = require('./routes/guilds');
+app.use('/guilds', guildRoutes);
+
 /*
   ROUTES
 */
@@ -59,6 +62,9 @@ app.get('/guilds', function (req, res) {
     res.render('guilds');
 });
 
+app.get('/addguild', function (req, res) {
+    res.render('addguild');
+});
 
 app.get('/hats', function (req, res) {
     res.render('hats');
