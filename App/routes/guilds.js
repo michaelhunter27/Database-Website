@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
             res.status(500).send('Internal Server Error');
         } else {
             const guilds = results;
-            res.render('guilds', { guilds });
+            res.render('guilds', { guilds: guilds });
         }
     });
 });
@@ -39,7 +39,8 @@ router.put('/update', (req, res) => {
             console.error('Error updating guild:', err);
             res.status(500).send('Internal Server Error');
         } else {
-            const selectGuildQuery = `SELECT * FROM Guilds WHERE guildID = ${guildID};`;
+            const selectGuildQuery = `SELECT name, creation_date FROM Guilds 
+                                        WHERE guildID = ${guildID};`;
             db.query(selectGuildQuery, (err, result) => {
                 if (err) {
                     console.error('Error fetching updated guild:', err);

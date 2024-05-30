@@ -21,7 +21,7 @@ function deleteGuild(guildID) {
 
 function deleteGuildRow(guildID) {
     let table = document.querySelector("table");
-    for (let i = 1, row; row = table.rows[i]; i++) {
+    for (let i = 0, row; row = table.rows[i]; i++) {
         if (table.rows[i].getAttribute("guild-id") == guildID) {
             table.deleteRow(i);
             break;

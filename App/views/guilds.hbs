@@ -1,5 +1,5 @@
 <h1>Guilds</h1>
-<table>
+<table id="guild-table">
     <tr>
         <th>Guild ID</th>
         <th>Name</th>
@@ -7,7 +7,7 @@
         <th>Actions</th>
     </tr>
     {{#each guilds}}
-    <tr guild-id="{{this.guildID}}"></tr>
+    <tr guild-id="{{this.guildID}}">
         <td>{{this.guildID}}</td>
         <td>{{this.name}}</td>
         <td>{{this.creation_date}}</td>
@@ -15,6 +15,7 @@
             <button onclick="editGuild({{this.guildID}})">Edit</button>
             <button onclick="deleteGuild({{this.guildID}})">Delete</button>
         </td>
+    </tr>
     {{/each}}
 </table>
 
@@ -31,16 +32,8 @@
                 </select>
             </p>
             <p>
-                <label for="update-guild-name">Guild Name:</label>
-                <select id="update-guild-name" name="Name">
-                    {{#each guilds}}
-                        <option value ="{{this.name}}">{{this.name}}</option>
-                    {{/each}}
-                </select>
-            </p>
-            <p>
-                <label for="new-guild-name">New Guild Name:</label>
-                <input type="text" id="new-guild-name" name="name">
+                <label for="update-guild-name">New Guild Name:</label>
+                <input type="text" id="update-guild-name" name="name">
             </p>
             <button type="submit">Update Guild</button>
         </fieldset>
@@ -52,13 +45,13 @@
         <legend>Add New Guild</legend>
         <p>
             <label for="add-guild-name">Guild Name:</label>
-            <input type="text" id="add-guild-name" name="guild">
+            <input type="text" id="add-guild-name" name="name">
         </p>
         <p>
-            <label for="add-creation-date">Creation Date:</label>
-            <input type="date" id="creation-date" name="creation-date">
+            <label for="add-creation_date">Creation Date:</label>
+            <input type="date" id="creation_date" name="creation_date">
         </p>
-        <button>Add Guild</button>
+        <button type="submit">Add Guild</button>
     </fieldset>
 </form>
 
