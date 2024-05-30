@@ -32,6 +32,7 @@
             <p>
                 <label for="update-character-id">Character:</label>
                 <select id="update-character-id" name="characterID">
+                    <option value="0">--SELECT CHARACTER--</option>
                     {{#each characters}}
                         <option value="{{this.characterID}}">{{this.name}}</option>
                     {{/each}}

@@ -11,6 +11,7 @@ function deleteCharacter(characterID){
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
             deleteCharacterRow(characterID);
+            deleteCharacterOption(characterID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.");
@@ -28,5 +29,16 @@ function deleteCharacterRow(characterID){
             table.deleteRow(i);
             break;
         }
+    }
+}
+
+// deletes the character from the dropdown menu in the update character form
+function deleteCharacterOption(characterID){
+    let characterSelect = document.getElementById("update-character-id");
+    for (let i = 0; i < characterSelect.length; i++){
+        if (Number(characterSelect.options[i].value) === Number(characterID)){
+            characterSelect[i].remove();
+            break;
+        } 
     }
 }

@@ -1,7 +1,7 @@
 // get update class form
-let updateClassForm = document.getElementById("update-character-form");
+let updateCharacterForm = document.getElementById("update-character-form");
 
-updateClassForm.addEventListener("submit", function (e){
+updateCharacterForm.addEventListener("submit", function (e){
     //prevent form being submitted
     e.preventDefault()
 
@@ -50,6 +50,39 @@ updateClassForm.addEventListener("submit", function (e){
 
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
+});
+
+// get update form character select element
+let updateCharacterSelect = document.getElementById("update-character-id");
+
+// autofill update form with current data when selected character changes
+updateCharacterSelect.addEventListener("change", function (e){
+    // characters table
+    const table = document.getElementById("character-table");
+    const characterID = e.target.value;
+
+    // parts of the form to update
+    const accountInput = document.getElementById("update-character-account");
+    const nameInput = document.getElementById("update-character-name");
+    const levelInput = document.getElementById("update-character-level");
+    const classInput = document.getElementById("update-character-class");
+    const guildInput = document.getElementById("update-character-guild");
+
+    if (characterID !== "0"){
+        for(let i = 0, row; row = table.rows[i]; i++){
+            if (table.rows[i].getAttribute("character-id") == characterID){
+                const characterRowTR = table.getElementsByTagName("tr")[i];
+
+                //const characterRowAccount = characterRowTR.getElementsByTagName("td")[1];
+                const characterRowName = characterRowTR.getElementsByTagName("td")[2];
+                const characterRowLevel = characterRowTR.getElementsByTagName("td")[3];
+
+                //accountInput.value = characterRowAccount.innerHTML;
+                nameInput.value = characterRowName.innerHTML;
+                levelInput.value = characterRowLevel.innerHTML;
+            }
+        }
+    }
 });
 
 function updateCharacterRow(data, characterID){
