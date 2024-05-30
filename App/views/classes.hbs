@@ -4,6 +4,7 @@
         <th>Class ID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
     {{#each classes}}
@@ -11,6 +12,7 @@
         <td>{{this.classID}}</td>
         <td>{{this.name}}</td>
         <td>{{this.description}}</td>
+        <td><button onclick="editClass({{this.classID}})">Edit</button></td>
         <td><button onclick="deleteClass({{this.classID}})">Delete</button></td>
     </tr>
     {{/each}}

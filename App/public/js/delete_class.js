@@ -11,6 +11,7 @@ function deleteClass(classID){
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
             deleteClassRow(classID);
+            deleteClassOption(classID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.");
@@ -29,5 +30,16 @@ function deleteClassRow(classID){
             table.deleteRow(i);
             break;
         }
+    }
+}
+
+// deletes the class from the dropdown menu in the update class form
+function deleteClassOption(classID){
+    let classSelect = document.getElementById("update-class-id");
+    for (let i = 0; i < classSelect.length; i++){
+        if (Number(classSelect.options[i].value) === Number(classID)){
+            classSelect[i].remove();
+            break;
+        } 
     }
 }

@@ -41,6 +41,42 @@ updateClassForm.addEventListener("submit", function (e){
 });
 
 
+// autofill update form with current data when selected class changes
+function updateClassSelect (classID){
+    // classs table
+    const table = document.getElementById("class-table");
+
+    // parts of the form to update
+    const nameInput = document.getElementById("update-class-name");
+    const descriptionInput = document.getElementById("update-class-description");
+
+
+    if (classID !== "0"){
+        for(let i = 0, row; row = table.rows[i]; i++){
+            if (table.rows[i].getAttribute("class-id") == classID){
+                const classRowTR = table.getElementsByTagName("tr")[i];
+
+                const classRowName = classRowTR.getElementsByTagName("td")[1];
+                const classRowDescription = classRowTR.getElementsByTagName("td")[2];
+
+                nameInput.value = classRowName.innerHTML;
+                descriptionInput.value = classRowDescription.innerHTML;
+            }
+        }
+    }
+};
+
+
+// get update form class select element
+let classSelect = document.getElementById("update-class-id");
+
+// add event listener so that function is called when select value changes
+classSelect.addEventListener("change", (e) => {
+    const classID = e.target.value;
+    updateClassSelect(classID)
+});
+
+
 function updateRow(data, classID){
     
     let parsedData = JSON.parse(data);
@@ -59,4 +95,11 @@ function updateRow(data, classID){
             updateRowDescription.innerHTML = parsedData[0].description;
         }
     }
+}
+
+// change selected class in update class form
+function editClass(classID){
+    const classSelect = document.getElementById("update-class-id");
+    classSelect.value = classID;
+    updateClassSelect(classID);
 }
