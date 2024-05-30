@@ -47,13 +47,16 @@
     <fieldset>
         <legend>Add New Guild</legend>
         <p>
-            <label for="add-guild">Name:</label>
-            <input type="text" id="name" name="name">
+            <label for="add-guild-name">Guild Name:</label>
+            <input type="text" id="add-guild-name" name="guild">
         </p>
         <p>
-            <label for="creation_date">Creation Date:</label>
-            <input type="date" id="creation_date" name="creation_date" value="{{getCurrentDate}}">
+            <label for="add-creation-date">Creation Date:</label>
+            <input type="date" id="creation-date" name="creation-date">
         </p>
-        <button type="submit">Add Guild</button>
+        <button>Add Guild</button>
     </fieldset>
 </form>
+
+<script src="./js/update_guild.js"></script>
+<script src="./js/delete_guild.js"></script>
