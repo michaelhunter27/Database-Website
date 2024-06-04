@@ -52,39 +52,8 @@ updateCharacterForm.addEventListener("submit", function (e){
     xhttp.send(JSON.stringify(data));
 });
 
-// get update form character select element
-let updateCharacterSelect = document.getElementById("update-character-id");
 
-// autofill update form with current data when selected character changes
-updateCharacterSelect.addEventListener("change", function (e){
-    // characters table
-    const table = document.getElementById("character-table");
-    const characterID = e.target.value;
-
-    // parts of the form to update
-    const accountInput = document.getElementById("update-character-account");
-    const nameInput = document.getElementById("update-character-name");
-    const levelInput = document.getElementById("update-character-level");
-    const classInput = document.getElementById("update-character-class");
-    const guildInput = document.getElementById("update-character-guild");
-
-    if (characterID !== "0"){
-        for(let i = 0, row; row = table.rows[i]; i++){
-            if (table.rows[i].getAttribute("character-id") == characterID){
-                const characterRowTR = table.getElementsByTagName("tr")[i];
-
-                //const characterRowAccount = characterRowTR.getElementsByTagName("td")[1];
-                const characterRowName = characterRowTR.getElementsByTagName("td")[2];
-                const characterRowLevel = characterRowTR.getElementsByTagName("td")[3];
-
-                //accountInput.value = characterRowAccount.innerHTML;
-                nameInput.value = characterRowName.innerHTML;
-                levelInput.value = characterRowLevel.innerHTML;
-            }
-        }
-    }
-});
-
+// updates data in the character table after an update
 function updateCharacterRow(data, characterID){
     
     let parsedData = JSON.parse(data);
@@ -111,3 +80,80 @@ function updateCharacterRow(data, characterID){
         }
     }
 }
+
+
+function editCharacter(characterID){
+    const updateCharacterSelect = document.getElementById("update-character-id");
+    updateCharacterSelect.value = characterID;
+    fillUpdateForm(characterID);
+}
+
+
+// fills update form with character data (characterID string)
+function fillUpdateForm(characterID){
+    // characters table
+    const table = document.getElementById("character-table");
+
+    // parts of the form to update
+    const accountInput = document.getElementById("update-character-account");
+    const nameInput = document.getElementById("update-character-name");
+    const levelInput = document.getElementById("update-character-level");
+    const classInput = document.getElementById("update-character-class");
+    const guildInput = document.getElementById("update-character-guild");
+
+    if (characterID === "0"){
+        //accountInput.value = ;
+        nameInput.value = "";
+        levelInput.value = "";
+        classInput.value = "NULL";
+        guildInput.value = "NULL";
+        const checkboxes = document.getElementsByName("update-character-hats");
+
+        for (checkbox of checkboxes){
+            // uncheck all checkboxes to start
+            checkbox.checked = false;
+        }
+    }
+    else{
+        for(let i = 0, row; row = table.rows[i]; i++){
+            if (table.rows[i].getAttribute("character-id") == characterID){
+                const characterRowTR = table.getElementsByTagName("tr")[i];
+
+                const characterRowAccount = characterRowTR.getElementsByTagName("td")[1];
+                const characterRowName = characterRowTR.getElementsByTagName("td")[2];
+                const characterRowLevel = characterRowTR.getElementsByTagName("td")[3];
+                const characterRowClass = characterRowTR.getElementsByTagName("td")[4];
+                const characterRowGuild = characterRowTR.getElementsByTagName("td")[5];
+
+                accountInput.value = characterRowAccount.getAttribute("account-id");
+                nameInput.value = characterRowName.innerHTML;
+                levelInput.value = characterRowLevel.innerHTML;
+                classInput.value = characterRowClass.getAttribute("class-id");
+                guildInput.value = characterRowGuild.getAttribute("guild-id");
+            }
+        }
+        const checkboxes = document.getElementsByName("update-character-hats");
+        const intersectionTable = document.getElementById("intersection-table");
+
+        for (checkbox of checkboxes){
+            // uncheck all checkboxes to start
+            checkbox.checked = false;
+            for (let i = 1, row; row = intersectionTable.rows[i]; i++){
+                if (intersectionTable.rows[i].getElementsByTagName("td")[1].getAttribute("character-id") === characterID){
+                    if (intersectionTable.rows[i].getElementsByTagName("td")[2].getAttribute("hat-id") === checkbox.value){
+                        checkbox.checked = true
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// get update form character select element
+let updateCharacterSelect = document.getElementById("update-character-id");
+
+// autofill update form with current data when selected character changes
+updateCharacterSelect.addEventListener("change", function (e){
+    fillUpdateForm(e.target.value);
+});
