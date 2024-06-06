@@ -40,8 +40,16 @@ updateCharacterForm.addEventListener("submit", function (e){
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            // Add the new data to the table
-            updateCharacterRow(xhttp.response, characterID);
+            const data = JSON.parse(xhttp.response);
+            const { characterData, hatsData } = data;
+            // Update the character table with new data
+            console.log(characterData);
+            
+            updateCharacterRow(characterData, characterID);
+            console.log(hatsData);
+            // Update the intersection table
+            deleteHatRows(characterID);
+            addHatRows(hatsData);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -55,9 +63,6 @@ updateCharacterForm.addEventListener("submit", function (e){
 
 // updates data in the character table after an update
 function updateCharacterRow(data, characterID){
-    
-    let parsedData = JSON.parse(data);
-
     let table = document.getElementById("character-table");
 
     for(let i = 0, row; row = table.rows[i]; i++){
@@ -72,14 +77,59 @@ function updateCharacterRow(data, characterID){
             const updateRowGuild = updateRowTR.getElementsByTagName("td")[5];
 
             // set table data to match update
-            updateRowUsername.innerHTML = parsedData[0].username;
-            updateRowName.innerHTML = parsedData[0].name;
-            updateRowLevel.innerHTML = parsedData[0].level;
-            updateRowClass.innerHTML = parsedData[0].class;
-            updateRowGuild.innerHTML = parsedData[0].guild;
+            updateRowUsername.innerHTML = data[0].username;
+            updateRowName.innerHTML = data[0].name;
+            updateRowLevel.innerHTML = data[0].level;
+            updateRowClass.innerHTML = data[0].class;
+            updateRowGuild.innerHTML = data[0].guild;
         }
     }
 }
+
+// removes rows from the intersection table
+function deleteHatRows(characterID){
+    console.log("hello");
+    let intersectionTable = document.getElementById("intersection-table");
+    for (let i = intersectionTable.rows.length - 1; i > 0; i--) {
+        let intersectionRow = intersectionTable.rows[i];
+        let characterCell = intersectionRow.getElementsByTagName("td")[1];
+        if (characterCell.getAttribute("character-id") == characterID) {
+            intersectionTable.deleteRow(i);
+        }
+        console.log(i);
+    }
+    console.log("good bye");
+}
+
+// adds rows to the intersection table
+function addHatRows(data){
+    console.log("hello there");
+    console.log(data);
+    //const intersectionTable = document.getElementById("intersection-table");
+    //const tableBody = intersectionTable.getElementsByTagName("tbody")[0];
+    const tableBody = document.getElementById("intersection-table-body");
+    for (let i = 0; i < data.length; i++){
+        let newRow = document.createElement("tr");
+
+        let idCell = document.createElement("td");
+        idCell.innerHTML = data[i].character_hatID;
+        newRow.appendChild(idCell);
+
+        let characterCell = document.createElement("td");
+        characterCell.innerHTML = data[i].characterName;
+        characterCell.setAttribute("character-id", data[i].characterID);
+        newRow.appendChild(characterCell);
+
+        let hatCell = document.createElement("td");
+        hatCell.innerHTML = data[i].hatName;
+        hatCell.setAttribute("hat-id", data[i].hatID);
+        newRow.appendChild(hatCell);
+
+        tableBody.appendChild(newRow);
+    }
+    console.log("good bye");
+}
+
 
 
 function editCharacter(characterID){

@@ -12,6 +12,7 @@ function deleteCharacter(characterID){
         if (xhttp.readyState == 4 && xhttp.status == 204) {
             deleteCharacterRow(characterID);
             deleteCharacterOption(characterID);
+            deleteHatRows(characterID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.");
@@ -41,4 +42,22 @@ function deleteCharacterOption(characterID){
             break;
         } 
     }
+}
+
+// removes rows from the intersection table
+function deleteHatRows(characterID){
+    let intersectionTable = document.getElementById("intersection-table");
+    for (let i = intersectionTable.rows.length - 1; i > 0; i--) {
+        let intersectionRow = intersectionTable.rows[i];
+        let characterCell = intersectionRow.getElementsByTagName("td")[1];
+        if (characterCell.getAttribute("character-id") == characterID) {
+            intersectionTable.deleteRow(i);
+        }
+    }
+}
+
+// adds rows to the intersection table
+function addHatRows(data){
+
+
 }
