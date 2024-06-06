@@ -1,171 +1,166 @@
-<table class="container">
-    <tr>
-        <td>
-            <h1>Characters</h1>
-            <table id="character-table">
+<div class="container">
+    <div>
+        <h1>Characters</h1>
+        <table id="character-table">
+            <tr>
+                <th>Character ID</th>
+                <th>Account Username</th>
+                <th>Character Name</th>
+                <th>Level</th>
+                <th>Class</th>
+                <th>Guild</th>
+                <th>Edit/Delete</th>
+            </tr>
+            {{#each characters}}
+            <tr character-id="{{this.characterID}}">
+                <td>{{this.characterID}}</td>
+                <td account-id="{{this.accountID}}">{{this.username}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td class-id="{{this.classID}}">{{this.class}}</td>
+                <td guild-id="{{this.guildID}}">{{this.guild}}</td>
+                <td>
+                    <button onclick="editCharacter('{{this.characterID}}')">Edit</button>
+                    <button onclick="deleteCharacter({{this.characterID}})">Delete</button>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div>
+            <h1>Characters' Hats</h1>
+        <table id="intersection-table">
+            <thead>
                 <tr>
-                    <th>Character ID</th>
-                    <th>Account Username</th>
-                    <th>Character Name</th>
-                    <th>Level</th>
-                    <th>Class</th>
-                    <th>Guild</th>
-                    <th>Edit/Delete</th>
+                    <th>ID</th>
+                    <th>Character</th>
+                    <th>Hat</th>
                 </tr>
-                {{#each characters}}
-                <tr character-id="{{this.characterID}}">
-                    <td>{{this.characterID}}</td>
-                    <td account-id="{{this.accountID}}">{{this.username}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.level}}</td>
-                    <td class-id="{{this.classID}}">{{this.class}}</td>
-                    <td guild-id="{{this.guildID}}">{{this.guild}}</td>
-                    <td>
-                        <button onclick="editCharacter('{{this.characterID}}')">Edit</button>
-                        <button onclick="deleteCharacter({{this.characterID}})">Delete</button>
-                    </td>
+            </thead>
+            <tbody id="intersection-table-body">
+                {{#each intersection}}
+                <tr>
+                    <td>{{this.character_hatID}}</td>
+                    <td character-id="{{this.characterID}}">{{this.character}}</td>
+                    <td hat-id="{{this.hatID}}">{{this.hat}}</td>
                 </tr>
                 {{/each}}
-            </table>
-        </td>
-        <td>
-            <h1>Characters' Hats</h1>
-            <table id="intersection-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Character</th>
-                        <th>Hat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each intersection}}
-                    <tr>
-                        <td>{{this.character_hatID}}</td>
-                        <td character-id="{{this.characterID}}">{{this.character}}</td>
-                        <td hat-id="{{this.hatID}}">{{this.hat}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </td>
-    </tr>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
 <br>
-<table>
-    <tr>
-        <td>
-            <div id="update-character-form">
-                <form>
-                    <fieldset>
-                        <legend>Update Character</legend>
-                        <p>
-                            <label for="update-character-id">Character:</label>
-                            <select id="update-character-id" name="characterID">
-                                <option value="0">--SELECT CHARACTER--</option>
-                                {{#each characters}}
-                                    <option value="{{this.characterID}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                        </p>
-                        <p>
-                            <label for="update-character-account">Account Name:</label>
-                            <select id="update-character-account" name="accountID">
-                                {{#each accounts}}
-                                    <option value="{{this.accountID}}">{{this.username}}</option>
-                                {{/each}}
-                            </select>
-                        </p>
-                        <p>
-                            <label for="update-character-name">Name:</label>
-                            <input type="text" id="update-character-name" name="name">
-                        </p>
-                        <p>
-                            <label for="update-character-level">Level:</label>
-                            <input type="number" id="update-character-level" name="level">
-                        </p>
-                        <p>
-                            <label for="update-character-class">Class Name:</label>
-                            <select id="update-character-class" name="classID">
-                                <option value="NULL">None</option>
-                                {{#each classes}}
-                                    <option value="{{this.classID}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                        </p>
-                        <p>
-                            <label for="update-character-guild">Guild Name:</label>
-                            <select id="update-character-guild" name="guildID">
-                                <option value="NULL">None</option>
-                                {{#each guilds}}
-                                    <option value="{{this.guildID}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                        </p>
-                        <p>
-                            <label>Hats</label>
-                            {{#each hats}}
-                                <input type="checkbox" name="update-character-hats" value="{{this.hatID}}">
-                                {{this.name}}</br>
-                            {{/each}}
-                        </p>
-                        <button type="submit">Update Character</button>
-                    </fieldset>
-                </form>
-            </div>
-        </td>
-        <td>
-            <form id="add-character-form" method="post" action="/characters/add">
-                <fieldset>
-                    <legend>Add New Character</legend>
-                    <p>
-                        <label for="add-character-account">Account Name:</label>
-                        <select id="add-character-account" name="accountID">
-                            {{#each accounts}}
-                                <option value="{{this.accountID}}">{{this.username}}</option>
-                            {{/each}}
-                        </select>
-                    </p>
-                    <p>
-                        <label for="add-character-name">Name:</label>
-                        <input type="text" id="add-character-name" name="name">
-                    </p>
-                    <p>
-                        <label for="add-character-level">Level:</label>
-                        <input type="number" id="add-character-level" name="level">
-                    </p>
-                    <p>
-                        <label for="add-character-class">Class Name:</label>
-                        <select id="add-character-class" name="classID">
-                            <option value="NULL">None</option>
-                            {{#each classes}}
-                                <option value="{{this.classID}}">{{this.name}}</option>
-                            {{/each}}
-                            
-                        </select>
-                    </p>
-                    <p>
-                        <label for="add-character-guild">Guild Name:</label>
-                        <select id="add-character-guild" name="guildID">
-                            <option value="NULL">None</option>
-                            {{#each guilds}}
-                                <option value="{{this.guildID}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                    </p>
-                    <p>
-                            <label>Hats</label>
-                            {{#each hats}}
-                                <input type="checkbox" name="hatIDs" value="{{this.hatID}}">
-                                {{this.name}}</br>
-                            {{/each}}
-                    </p>
-                    <button>Add Character</button>
-                </fieldset>
-            </form>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <div id="update-character-form">
+        <form>
+            <fieldset>
+                <legend>Update Character</legend>
+                <p>
+                    <label for="update-character-id">Character:</label>
+                    <select id="update-character-id" name="characterID">
+                        <option value="0">--SELECT CHARACTER--</option>
+                        {{#each characters}}
+                            <option value="{{this.characterID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="update-character-account">Account Name:</label>
+                    <select id="update-character-account" name="accountID">
+                        {{#each accounts}}
+                            <option value="{{this.accountID}}">{{this.username}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="update-character-name">Name:</label>
+                    <input type="text" id="update-character-name" name="name">
+                </p>
+                <p>
+                    <label for="update-character-level">Level:</label>
+                    <input type="number" id="update-character-level" name="level">
+                </p>
+                <p>
+                    <label for="update-character-class">Class Name:</label>
+                    <select id="update-character-class" name="classID">
+                        <option value="NULL">None</option>
+                        {{#each classes}}
+                            <option value="{{this.classID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="update-character-guild">Guild Name:</label>
+                    <select id="update-character-guild" name="guildID">
+                        <option value="NULL">None</option>
+                        {{#each guilds}}
+                            <option value="{{this.guildID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label>Hats</label>
+                    {{#each hats}}
+                        <input type="checkbox" name="update-character-hats" value="{{this.hatID}}">
+                        {{this.name}}</br>
+                    {{/each}}
+                </p>
+                <button type="submit">Update Character</button>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <form id="add-character-form" method="post" action="/characters/add">
+            <fieldset>
+                <legend>Add New Character</legend>
+                <br>
+                <p>
+                    <label for="add-character-account">Account Name:</label>
+                    <select id="add-character-account" name="accountID">
+                        {{#each accounts}}
+                            <option value="{{this.accountID}}">{{this.username}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="add-character-name">Name:</label>
+                    <input type="text" id="add-character-name" name="name">
+                </p>
+                <p>
+                    <label for="add-character-level">Level:</label>
+                    <input type="number" id="add-character-level" name="level">
+                </p>
+                <p>
+                    <label for="add-character-class">Class Name:</label>
+                    <select id="add-character-class" name="classID">
+                        <option value="NULL">None</option>
+                        {{#each classes}}
+                            <option value="{{this.classID}}">{{this.name}}</option>
+                        {{/each}}
+                        
+                    </select>
+                </p>
+                <p>
+                    <label for="add-character-guild">Guild Name:</label>
+                    <select id="add-character-guild" name="guildID">
+                        <option value="NULL">None</option>
+                        {{#each guilds}}
+                            <option value="{{this.guildID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                        <label>Hats</label>
+                        {{#each hats}}
+                            <input type="checkbox" name="hatIDs" value="{{this.hatID}}">
+                            {{this.name}}</br>
+                        {{/each}}
+                </p>
+                <button>Add Character</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 <script src="./js/update_character.js"></script>
 <script src="./js/delete_character.js"></script>
