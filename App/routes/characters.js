@@ -161,7 +161,7 @@ router.put('/update', (req, res) => {
                     let addHatsQuery = "SELECT * FROM Characters_Hats";
 
                     // build a query to insert into intersection table
-                    if (typeof hatIDs !== 'undefined'){
+                    if (hatIDs.length > 0){
                         addHatsQuery = `INSERT INTO Characters_Hats (characterID, hatID) VALUES `;
                         for (let i = 0; i < hatIDs.length; i++){
                             addHatsQuery += `(${characterID}, ${hatIDs[i]})`;
