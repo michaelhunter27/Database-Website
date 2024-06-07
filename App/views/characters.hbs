@@ -51,6 +51,57 @@
 </div>
 <br>
 <div class="container">
+    <div>
+        <form id="add-character-form" method="post" action="/characters/add">
+            <fieldset>
+                <legend>Add New Character</legend>
+                <br>
+                <p>
+                    <label for="add-character-account">Account Name:</label>
+                    <select id="add-character-account" name="accountID">
+                        {{#each accounts}}
+                            <option value="{{this.accountID}}">{{this.username}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="add-character-name">Name:</label>
+                    <input type="text" id="add-character-name" name="name">
+                </p>
+                <p>
+                    <label for="add-character-level">Level:</label>
+                    <input type="number" id="add-character-level" name="level">
+                </p>
+                <p>
+                    <label for="add-character-class">Class Name:</label>
+                    <select id="add-character-class" name="classID">
+                        <option value="NULL">None</option>
+                        {{#each classes}}
+                            <option value="{{this.classID}}">{{this.name}}</option>
+                        {{/each}}
+                        
+                    </select>
+                </p>
+                <p>
+                    <label for="add-character-guild">Guild Name:</label>
+                    <select id="add-character-guild" name="guildID">
+                        <option value="NULL">None</option>
+                        {{#each guilds}}
+                            <option value="{{this.guildID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                        <label>Hats</label>
+                        {{#each hats}}
+                            <input type="checkbox" name="hatIDs" value="{{this.hatID}}">
+                            {{this.name}}</br>
+                        {{/each}}
+                </p>
+                <button>Add Character</button>
+            </fieldset>
+        </form>
+    </div>
     <div id="update-character-form">
         <form>
             <fieldset>
@@ -106,57 +157,6 @@
                     {{/each}}
                 </p>
                 <button type="submit">Update Character</button>
-            </fieldset>
-        </form>
-    </div>
-    <div>
-        <form id="add-character-form" method="post" action="/characters/add">
-            <fieldset>
-                <legend>Add New Character</legend>
-                <br>
-                <p>
-                    <label for="add-character-account">Account Name:</label>
-                    <select id="add-character-account" name="accountID">
-                        {{#each accounts}}
-                            <option value="{{this.accountID}}">{{this.username}}</option>
-                        {{/each}}
-                    </select>
-                </p>
-                <p>
-                    <label for="add-character-name">Name:</label>
-                    <input type="text" id="add-character-name" name="name">
-                </p>
-                <p>
-                    <label for="add-character-level">Level:</label>
-                    <input type="number" id="add-character-level" name="level">
-                </p>
-                <p>
-                    <label for="add-character-class">Class Name:</label>
-                    <select id="add-character-class" name="classID">
-                        <option value="NULL">None</option>
-                        {{#each classes}}
-                            <option value="{{this.classID}}">{{this.name}}</option>
-                        {{/each}}
-                        
-                    </select>
-                </p>
-                <p>
-                    <label for="add-character-guild">Guild Name:</label>
-                    <select id="add-character-guild" name="guildID">
-                        <option value="NULL">None</option>
-                        {{#each guilds}}
-                            <option value="{{this.guildID}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
-                </p>
-                <p>
-                        <label>Hats</label>
-                        {{#each hats}}
-                            <input type="checkbox" name="hatIDs" value="{{this.hatID}}">
-                            {{this.name}}</br>
-                        {{/each}}
-                </p>
-                <button>Add Character</button>
             </fieldset>
         </form>
     </div>
