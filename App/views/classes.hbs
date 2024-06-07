@@ -17,45 +17,49 @@
     </tr>
     {{/each}}
 </table>
-
-<form method="post" action="/classes/add">
-    <fieldset>
-        <legend>Add New Class</legend>
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-        </p>
-        <p>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description"></textarea>
-        </p>
-        <button type="submit">Add Class</button>
-    </fieldset>
-</form>
-
-
-<form id="update-class-form">
-    <fieldset>
-        <legend>Update Class</legend>
-        <p>
-            <label for="update-class-id">Class:</label>
-            <select id="update-class-id" name="classID">
-                {{#each classes}}
-                <option value="{{this.classID}}">{{this.name}}</option>
-                {{/each}}
-            </select>
-        </p>
-        <p>
-            <label for="update-class-name">Name:</label>
-            <input type="text" id="update-class-name" name="name">
-        </p>
-        <p>
-            <label for="update-class-description">Description:</label>
-            <textarea id="update-class-description" name="description"></textarea>
-        </p>
-        <input type="submit">
-    </fieldset>
-</form>
+<div class="container">
+    <div>
+        <form method="post" action="/classes/add">
+            <fieldset>
+                <legend>Add New Class</legend>
+                <br>
+                <p>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </p>
+                <p>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                </p>
+                <button type="submit">Add Class</button>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <form id="update-class-form">
+            <fieldset>
+                <legend>Update Class</legend>
+                <p>
+                    <label for="update-class-id">Class:</label>
+                    <select id="update-class-id" name="classID">
+                        {{#each classes}}
+                        <option value="{{this.classID}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </p>
+                <p>
+                    <label for="update-class-name">Name:</label>
+                    <input type="text" id="update-class-name" name="name">
+                </p>
+                <p>
+                    <label for="update-class-description">Description:</label>
+                    <textarea id="update-class-description" name="description"></textarea>
+                </p>
+                <button type="submit">Update</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 <script src="./js/update_class.js"></script>
 <script src="./js/delete_class.js"></script>
