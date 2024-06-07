@@ -43,13 +43,33 @@ updateCharacterForm.addEventListener("submit", function (e){
             const data = JSON.parse(xhttp.response);
             const { characterData, hatsData } = data;
             // Update the character table with new data
-            console.log(characterData);
             
             updateCharacterRow(characterData, characterID);
-            console.log(hatsData);
+            
             // Update the intersection table
             deleteHatRows(characterID);
             addHatRows(hatsData);
+            
+            const tableBody = document.getElementById("intersection-table-body");
+            for (let i = 0; i < hatsData.length; i++){
+                let newRow = document.createElement("tr");
+
+                let idCell = document.createElement("td");
+                idCell.innerHTML = hatsData[i].character_hatID;
+                newRow.appendChild(idCell);
+
+                let characterCell = document.createElement("td");
+                characterCell.innerHTML = hatsData[i].characterName;
+                characterCell.setAttribute("character-id", hatsData[i].characterID);
+                newRow.appendChild(characterCell);
+
+                let hatCell = document.createElement("td");
+                hatCell.innerHTML = hatsData[i].hatName;
+                hatCell.setAttribute("hat-id", hatsData[i].hatID);
+                newRow.appendChild(hatCell);
+
+                tableBody.appendChild(newRow);
+            }
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -88,7 +108,6 @@ function updateCharacterRow(data, characterID){
 
 // removes rows from the intersection table
 function deleteHatRows(characterID){
-    console.log("hello");
     let intersectionTable = document.getElementById("intersection-table");
     for (let i = intersectionTable.rows.length - 1; i > 0; i--) {
         let intersectionRow = intersectionTable.rows[i];
@@ -96,14 +115,12 @@ function deleteHatRows(characterID){
         if (characterCell.getAttribute("character-id") == characterID) {
             intersectionTable.deleteRow(i);
         }
-        console.log(i);
     }
-    console.log("good bye");
 }
 
 // adds rows to the intersection table
 function addHatRows(data){
-    console.log("hello there");
+    /*console.log("hello there");
     console.log(data);
     //const intersectionTable = document.getElementById("intersection-table");
     //const tableBody = intersectionTable.getElementsByTagName("tbody")[0];
@@ -128,6 +145,7 @@ function addHatRows(data){
         tableBody.appendChild(newRow);
     }
     console.log("good bye");
+    */
 }
 
 
