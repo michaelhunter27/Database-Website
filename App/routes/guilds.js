@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
 
 router.post('/add', (req, res) => {
     const { name, creation_date } = req.body;
-    const addGuildQuery = `INSERT INTO Guilds (name, creation_date) VALUES ('${name}', '${creation_date}');`;
+    const addGuildQuery = `INSERT INTO Guilds (name, creation_date) VALUES (?, ?);`;
 
-    db.query(addGuildQuery, (err, results) => {
+    db.query(addGuildQuery, [name, creation_date], (err, results) => {
         if (err) {
             console.error('Error inserting guild:', err);
             res.status(500).send('Internal Server Error');
@@ -31,17 +31,16 @@ router.post('/add', (req, res) => {
 });
 
 router.put('/update', (req, res) => {
-    const { guildID, name, creation_date } = req.body;
-    const updateGuildQuery = `UPDATE Guilds SET name = '${name}', creation_date = '${creation_date}' WHERE guildID = ${guildID};`;
+    const { guildID, name } = req.body;
+    const updateGuildQuery = `UPDATE Guilds SET name = ? WHERE guildID = ?;`;
 
-    db.query(updateGuildQuery, (err, result) => {
+    db.query(updateGuildQuery, [name, guildID], (err, result) => {
         if (err) {
             console.error('Error updating guild:', err);
             res.status(500).send('Internal Server Error');
         } else {
-            const selectGuildQuery = `SELECT name, creation_date FROM Guilds 
-                                        WHERE guildID = ${guildID};`;
-            db.query(selectGuildQuery, (err, result) => {
+            const selectGuildQuery = `SELECT name FROM Guilds WHERE guildID = ?;`;
+            db.query(selectGuildQuery, [guildID], (err, result) => {
                 if (err) {
                     console.error('Error fetching updated guild:', err);
                     res.status(500).send('Internal Server Error');
@@ -55,9 +54,9 @@ router.put('/update', (req, res) => {
 
 router.delete('/delete', (req, res) => {
     const { guildID } = req.body;
-    const deleteGuildQuery = `DELETE FROM Guilds WHERE guildID = ${guildID};`;
+    const deleteGuildQuery = `DELETE FROM Guilds WHERE guildID = ?;`;
 
-    db.query(deleteGuildQuery, (err, results) => {
+    db.query(deleteGuildQuery, [guildID], (err, results) => {
         if (err) {
             console.error('Error deleting guild:', err);
             res.status(500).send('Internal Server Error');

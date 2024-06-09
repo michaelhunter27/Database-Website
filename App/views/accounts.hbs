@@ -1,29 +1,40 @@
 <div class="container">
     <div>
         <h1>Accounts</h1>
-        <table id="accounts-table">
-            <tr>
-                <th>Account ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Hashed Password</th>
-                <th>Registration Date</th>
-                <th>Last Login</th>
-                <th>Active Status</th>
-            </tr>
-            {{#each accounts}}
-            <tr account-id="{{this.accountID}}">
-                <td>{{this.accountID}}</td>
-                <td>{{this.username}}</td>
-                <td>{{this.email}}</td>
-                <td>{{this.hashed_password}}</td>
-                <td>{{this.registration_date}}</td>
-                <td>{{this.last_login}}</td>
-                <td>{{this.active_status}}</td>
-            </tr>
-            {{/each}}
+        <table id="account-table">
+            <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Hashed Password</th>
+                    <th>Registration Date</th>
+                    <th>Last Login</th>
+                    <th>Active Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each accounts}}
+                <tr account-id="{{this.accountID}}">
+                    <td>{{this.accountID}}</td>
+                    <td>{{this.username}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.hashed_password}}</td>
+                    <td>{{this.registration_date}}</td>
+                    <td>{{this.last_login}}</td>
+                    <td>{{this.active_status}}</td>
+                    <td>
+                        <button onclick="deleteAccount({{this.accountID}})">Delete</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
+</div>
+<br>
+<div class="container">
     <div>
         <form id="add-account-form" method="post" action="/accounts/add">
             <fieldset>
@@ -53,8 +64,10 @@
                     <label for="add-account-active-status">Active Status:</label>
                     <input type="checkbox" id="add-account-active-status" name="active_status" value="1">
                 </p>
-                <button type="submit">Add Account</button>
+                <button>Add Account</button>
             </fieldset>
         </form>
     </div>
 </div>
+
+<script src="./js/delete_account.js"></script>

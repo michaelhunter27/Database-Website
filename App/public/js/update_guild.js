@@ -1,16 +1,14 @@
-let updateGuildForm = document.getElementById("update-guild-form");
+let updateGuildForm = document.getElementById("update-guild-form-content");
 
 updateGuildForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const guildID = document.getElementById("update-guild-id").value;
     const name = document.getElementById("update-guild-name").value;
-    const creation_date = document.getElementById("update-guild-creation-date").value;
 
     let data = {
         guildID: guildID,
-        name: name,
-        creation_date: creation_date
+        name: name
     };
 
     var xhttp = new XMLHttpRequest();
@@ -19,7 +17,7 @@ updateGuildForm.addEventListener("submit", function (e) {
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            updateGuildRow(xhttp.response, guildID);
+            updateGuildRow(xhttp.responseText, guildID);
         } else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.");
         }
@@ -29,7 +27,7 @@ updateGuildForm.addEventListener("submit", function (e) {
 });
 
 function updateGuildRow(data, guildID) {
-    let parsedData = JSON.parse(data);
+    let parsedData = JSON.parse(data)[0];
 
     let table = document.getElementById("guild-table");
 
@@ -37,10 +35,8 @@ function updateGuildRow(data, guildID) {
         if (table.rows[i].getAttribute("guild-id") == guildID) {
             const updateRowTR = table.getElementsByTagName("tr")[i];
             const updateRowName = updateRowTR.getElementsByTagName("td")[1];
-            const updateRowCreationDate = updateRowTR.getElementsByTagName("td")[2];
 
             updateRowName.innerHTML = parsedData.name;
-            updateRowCreationDate.innerHTML = parsedData.creation_date;
         }
     }
 }
@@ -50,11 +46,9 @@ function editGuild(guildID) {
     for (let i = 1, row; row = table.rows[i]; i++) {
         if (table.rows[i].getAttribute("guild-id") == guildID) {
             const name = table.rows[i].cells[1].innerText;
-            const creation_date = table.rows[i].cells[2].innerText;
 
             document.getElementById("update-guild-id").value = guildID;
             document.getElementById("update-guild-name").value = name;
-            document.getElementById("update-guild-creation-date").value = creation_date;
 
             document.getElementById("update-guild-form").style.display = "block";
         }

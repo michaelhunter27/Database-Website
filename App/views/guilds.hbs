@@ -20,7 +20,7 @@
 </table>
 
 <div id="update-guild-form">
-    <form>
+    <form id="update-guild-form-content">
         <fieldset>
             <legend>Update Guild</legend>
             <p>
@@ -40,7 +40,7 @@
     </form>
 </div>
 
-<form id ="add-guild-form" method="post" action="/guilds/add">
+<form id="add-guild-form" method="post" action="/guilds/add">
     <fieldset>
         <legend>Add New Guild</legend>
         <p>
@@ -48,7 +48,7 @@
             <input type="text" id="add-guild-name" name="name">
         </p>
         <p>
-            <label for="add-creation_date">Creation Date:</label>
+            <label for="creation_date">Creation Date:</label>
             <input type="date" id="creation_date" name="creation_date">
         </p>
         <button type="submit">Add Guild</button>
