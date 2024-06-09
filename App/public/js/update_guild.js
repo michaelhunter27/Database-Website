@@ -39,8 +39,8 @@ function updateGuildRow(data, guildID) {
             const updateRowName = updateRowTR.getElementsByTagName("td")[1];
             const updateRowCreationDate = updateRowTR.getElementsByTagName("td")[2];
 
-            updateRowName.innerHTML = parsedData[0].name;
-            updateRowCreationDate.innerHTML = parsedData[0].creation_date;
+            updateRowName.innerHTML = parsedData.name;
+            updateRowCreationDate.innerHTML = parsedData.creation_date;
         }
     }
 }

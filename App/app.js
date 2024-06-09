@@ -47,6 +47,9 @@ app.use('/guilds', guildRoutes);
 const hatRoutes = require('./routes/hats');
 app.use('/hats', hatRoutes);
 
+const accountRoutes = require('./routes/accounts');
+app.use('/accounts', accountRoutes);
+
 /*
   ROUTES
 */

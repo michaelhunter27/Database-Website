@@ -1,76 +1,60 @@
-<h1>Accounts</h1>
-
-<table>
-    <tr>
-        <th>Account ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Hashed Password</th>
-        <th>Registration Date</th>
-        <th>Last Login</th>
-        <th>Active Status</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>johnsmith</td>
-        <td>johnsmith@hello.com</td>
-        <td>a8d9c02be774a12f</td>
-        <td>2024-03-13</td>
-        <td>2024-04-23 04:44:03</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>buffwizard</td>
-        <td>buffwizard@hello.com</td>
-        <td>8a9d9f0e4c5a9231</td>
-        <td>2024-02-15</td>
-        <td>2024-04-26 06:28:53</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>alex456</td>
-        <td>alexgonzalez@hello.com</td>
-        <td>92bae74f01ee87a7</td>
-        <td>2024-03-02</td>
-        <td>2024-05-01 09:38:27</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>maxrebo</td>
-        <td>maxrebo@hello.com</td>
-        <td>829dea6c8f032e77</td>
-        <td>2024-04-20</td>
-        <td>2024-04-28 12:14:16</td>
-        <td>0</td>
-    </tr>
-</table>
-
-<form>
-    <fieldset>
-        <legend>Add Account</legend>
-        <p>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-        </p>
-        <p>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
-        </p>
-        <p>
-            <label for="hashed-password">Hashed Password:</label>
-            <input type="text" id="hashed-password" name="hashed-password">
-        </p>
-        <p>
-            <label for="registration-date">Registration Date:</label>
-            <input type="date" id="registration-date" name="registration-date">
-        </p>
-        <p>
-            <label>Last Login:</label>
-            <input type="datetime-local" id="last-login" name="last-login">
-        </p>
-        <button>Add</button>
-    </fieldset>
-</form>
+<div class="container">
+    <div>
+        <h1>Accounts</h1>
+        <table id="accounts-table">
+            <tr>
+                <th>Account ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Hashed Password</th>
+                <th>Registration Date</th>
+                <th>Last Login</th>
+                <th>Active Status</th>
+            </tr>
+            {{#each accounts}}
+            <tr account-id="{{this.accountID}}">
+                <td>{{this.accountID}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.hashed_password}}</td>
+                <td>{{this.registration_date}}</td>
+                <td>{{this.last_login}}</td>
+                <td>{{this.active_status}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div>
+        <form id="add-account-form" method="post" action="/accounts/add">
+            <fieldset>
+                <legend>Add New Account</legend>
+                <br>
+                <p>
+                    <label for="add-account-username">Username:</label>
+                    <input type="text" id="add-account-username" name="username">
+                </p>
+                <p>
+                    <label for="add-account-email">Email:</label>
+                    <input type="email" id="add-account-email" name="email">
+                </p>
+                <p>
+                    <label for="add-account-password">Password:</label>
+                    <input type="password" id="add-account-password" name="hashed_password">
+                </p>
+                <p>
+                    <label for="add-account-registration-date">Registration Date:</label>
+                    <input type="date" id="add-account-registration-date" name="registration_date">
+                </p>
+                <p>
+                    <label for="add-account-last-login">Last Login:</label>
+                    <input type="datetime-local" id="add-account-last-login" name="last_login">
+                </p>
+                <p>
+                    <label for="add-account-active-status">Active Status:</label>
+                    <input type="checkbox" id="add-account-active-status" name="active_status" value="1">
+                </p>
+                <button type="submit">Add Account</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
