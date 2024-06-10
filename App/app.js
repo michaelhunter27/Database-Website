@@ -6,8 +6,8 @@
 
 /*
   Code citation:
-  The SETUP portion of this code is from the nodejs starter app: https://github.com/osu-cs340-ecampus/nodejs-starter-app
-  Code in the ROUTES section is adapted from the examples in the nodejs starter app.
+  The SETUP and LISTENER portion of this code is from the nodejs starter app: 
+  https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
 
 /*
@@ -19,10 +19,9 @@ PORT = 31415; // Set a port number at the top so it's easy to change in the futu
 const express = require('express'); // We are using the express library for the web server
 const app = express(); // We need to instantiate an express object to interact with the server in our code
 
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(__dirname + '/public')); // this is needed to allow for the form to use the ccs style sheet
+app.use(express.static(__dirname + '/public')); // this is needed to allow for the form to use the css style sheet
 
 
 // Handlebars
@@ -34,7 +33,9 @@ app.set('view engine', '.hbs'); // Tell express to use the handlebars engine whe
 // Database
 const db = require('./database/db-connector')
 
-// Routes
+/*
+    ROUTES
+*/
 const classRoutes = require('./routes/classes');
 app.use('/classes', classRoutes);
 
@@ -50,26 +51,8 @@ app.use('/hats', hatRoutes);
 const accountRoutes = require('./routes/accounts');
 app.use('/accounts', accountRoutes);
 
-/*
-  ROUTES
-*/
-
-// GET ROUTES
 app.get('/', function (req, res) {
     res.render('index');
-});
-
-app.get('/accounts', function (req, res) {
-    res.render('accounts');
-});
-
-
-app.get('/guilds', function (req, res) {
-    res.render('guilds');
-});
-
-app.get('/addguild', function (req, res) {
-    res.render('addguild');
 });
 
 

@@ -2,20 +2,21 @@
   Michael Hunter and Ryan Giard
   CS 340 group 91
   characters.js
+  Routes for characters page
 */
 /*
   Code citation:
-    Code for these routes is adapted from the examples in the nodejs starter app.
+    Code for these routes is adapted from the nodejs starter app.
     https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
-
-// Routes for characters page
 
 const express = require('express');
 const router = express.Router();
 const db = require('../database/db-connector');
 
 // Display all characters
+// Makes queries to populate the characters table, several dynamic dropdown menus
+// and the characters_hats intersection table
 router.get('/', (req, res) => {
     // get data for character table
     const charactersQuery = 
@@ -140,6 +141,9 @@ router.post('/add', (req, res) => {
 });
 
 // UPDATE character
+// Updates the character data to match data in the request, 
+// then deletes all hats associated with the character, 
+// and finallly adds hats to the character based on hatIDs provided in the request
 router.put('/update', (req, res) => {
     const { characterID, accountID, name, level, classID, guildID, hatIDs} = req.body;
     
@@ -150,9 +154,9 @@ router.put('/update', (req, res) => {
             console.error('Error updating character:', err);
             res.status(500).send('Internal Server Error');
         } else {
-            const deleteHatsQuery = `DELETE FROM Characters_Hats WHERE characterID = ${characterID};`
+            const deleteHatsQuery = `DELETE FROM Characters_Hats WHERE characterID = ?;`
     
-            db.query(deleteHatsQuery, (err, result) => {
+            db.query(deleteHatsQuery, [characterID], (err, result) => {
                 if (err) {
                     console.error('Error updating character (deleting hats):', err);
                     res.status(500).send('Internal Server Error');
@@ -164,6 +168,7 @@ router.put('/update', (req, res) => {
                     if (hatIDs.length > 0){
                         addHatsQuery = `INSERT INTO Characters_Hats (characterID, hatID) VALUES `;
                         for (let i = 0; i < hatIDs.length; i++){
+                            // adds one tuple of values for each hatID
                             addHatsQuery += `(${characterID}, ${hatIDs[i]})`;
                             if (i < hatIDs.length - 1){
                                 addHatsQuery += ', ';
@@ -184,8 +189,8 @@ router.put('/update', (req, res) => {
                                                             INNER JOIN Accounts ON Characters.accountID = Accounts.accountID
                                                             LEFT JOIN Classes ON Characters.classID = Classes.classID
                                                             LEFT JOIN Guilds ON Characters.guildID = Guilds.guildID
-                                                            WHERE characterID = ${characterID};`;
-                            db.query(selectCharacterQuery, (err, result) => {
+                                                            WHERE characterID = ?;`;
+                            db.query(selectCharacterQuery, [characterID], (err, result) => {
                                 if (err) {
                                     console.error('Error updating character (getting character data):', err);
                                     res.status(500).send('Internal Server Error');
@@ -196,8 +201,8 @@ router.put('/update', (req, res) => {
                                     const getHatsQuery = `SELECT character_hatID, Characters.characterID AS 'characterID', Characters.name AS 'characterName', Hats.hatID AS 'hatID', Hats.name AS 'hatName' FROM Characters_Hats
                                                             INNER JOIN Characters ON Characters_Hats.characterID = Characters.characterID
                                                             INNER JOIN Hats ON Characters_Hats.hatID = Hats.hatID
-                                                            WHERE Characters_Hats.characterID = ${characterID};`
-                                    db.query(getHatsQuery, (err, result) => {
+                                                            WHERE Characters_Hats.characterID = ?;`
+                                    db.query(getHatsQuery, [characterID], (err, result) => {
                                         if (err) {
                                             console.error('Error updating character (getting hats):', err);
                                             res.status(500).send('Internal Server Error');
@@ -219,8 +224,8 @@ router.put('/update', (req, res) => {
 // DELETE character
 router.delete('/delete', (req, res) => {
     const { characterID } = req.body;
-    const deleteCharacterQuery = `DELETE FROM Characters WHERE characterID = ${characterID};`;
-    db.query(deleteCharacterQuery, (err, results) => {
+    const deleteCharacterQuery = `DELETE FROM Characters WHERE characterID = ?;`;
+    db.query(deleteCharacterQuery, [characterID], (err, results) => {
         if (err) {
             console.error('Error deleting character:', err);
             res.status(500).send('Internal Server Error');

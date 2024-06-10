@@ -2,6 +2,7 @@
   Michael Hunter and Ryan Giard
   CS 340 group 91
   hats.js
+  Routes for hats page
 */
 
 /*
@@ -16,8 +17,8 @@ const db = require('../database/db-connector');
 
 // Display all hats
 router.get('/', (req, res) => {
-    const query = 'SELECT * FROM Hats';
-    db.query(query, (err, results) => {
+    const selectHatsQuery = 'SELECT * FROM Hats';
+    db.query(selectHatsQuery, (err, results) => {
         if (err) {
             console.error('Error fetching hats:', err);
             res.status(500).send('Internal Server Error');
@@ -35,8 +36,9 @@ router.post('/add', (req, res) => {
       price = 'NULL';
     }
 
-    const query = 'INSERT INTO Hats (name, description, rarity, price) VALUES (?, ?, ?, ?)';
-    db.query(query, [name, description, rarity, price], (err, result) => {
+    const addHatQuery = 'INSERT INTO Hats (name, description, rarity, price) VALUES (?, ?, ?, ?)';
+    const queryParams = [name, description, rarity, price];
+    db.query(addHatQuery, queryParams, (err, result) => {
         if (err) {
             console.error('Error adding hats:', err);
             res.status(500).send('Internal Server Error');

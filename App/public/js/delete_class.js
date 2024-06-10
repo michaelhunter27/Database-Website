@@ -1,3 +1,16 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  delete_class.js
+  client side code for deleting a class
+*/
+/*
+  Code citation:
+    Code for these functions (deleteClass, deleteClassRow, and deleteClassOption) 
+    is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 // sends request to backend to delete Class matching classID
 function deleteClass(classID){
     const data = {
@@ -10,7 +23,10 @@ function deleteClass(classID){
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
+            // delete class's row from the HTML table
             deleteClassRow(classID);
+
+            // delete the class from the select element in the update form
             deleteClassOption(classID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {

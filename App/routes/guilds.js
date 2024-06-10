@@ -1,7 +1,20 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  guilds.js
+  Routes for guilds page
+*/
+/*
+  Code citation:
+    Code for these routes is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 const express = require('express');
 const router = express.Router();
 const db = require('../database/db-connector');
 
+// Display all guilds
 router.get('/', (req, res) => {
     const guildsQuery = `SELECT * FROM Guilds;`;
 
@@ -16,6 +29,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// CREATE a new guild
 router.post('/add', (req, res) => {
     const { name, creation_date } = req.body;
     const addGuildQuery = `INSERT INTO Guilds (name, creation_date) VALUES (?, ?);`;
@@ -30,6 +44,7 @@ router.post('/add', (req, res) => {
     });
 });
 
+// UPDATE a guild
 router.put('/update', (req, res) => {
     const { guildID, name } = req.body;
     const updateGuildQuery = `UPDATE Guilds SET name = ? WHERE guildID = ?;`;
@@ -52,6 +67,7 @@ router.put('/update', (req, res) => {
     });
 });
 
+// DELETE a guild
 router.delete('/delete', (req, res) => {
     const { guildID } = req.body;
     const deleteGuildQuery = `DELETE FROM Guilds WHERE guildID = ?;`;

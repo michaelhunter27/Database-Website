@@ -1,3 +1,16 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  delete_character.js
+  client side code for deleting a character
+*/
+/*
+  Code citation:
+    Code for these functions (deleteCharacter, deleteCharacterRow, deleteCharacterOption, and deleteHatRows) 
+    is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 // send a request to the backend to delete character matching characterID
 function deleteCharacter(characterID){
     const data = {
@@ -10,8 +23,13 @@ function deleteCharacter(characterID){
 
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
+            // remove character row from the HTML table
             deleteCharacterRow(characterID);
+
+            // remove the character from the select element in the update form
             deleteCharacterOption(characterID);
+
+            // remove the character's rows in the intersection table
             deleteHatRows(characterID);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -54,10 +72,4 @@ function deleteHatRows(characterID){
             intersectionTable.deleteRow(i);
         }
     }
-}
-
-// adds rows to the intersection table
-function addHatRows(data){
-
-
 }

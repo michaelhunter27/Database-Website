@@ -1,3 +1,17 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  update_character.js
+  client side code for updating a character
+*/
+/*
+  Code citation:
+    Code for the functions updateCharacter and deleteHatRows 
+    and the anonymous function passed to updateCharacterForm.addEventListener
+    is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 // get update class form
 let updateCharacterForm = document.getElementById("update-character-form");
 
@@ -21,7 +35,7 @@ updateCharacterForm.addEventListener("submit", function (e){
         }
     }
     
-
+    // data that will be sent in the request
     let data = {
         characterID: characterID,
         accountID: accountID,
@@ -49,27 +63,6 @@ updateCharacterForm.addEventListener("submit", function (e){
             // Update the intersection table
             deleteHatRows(characterID);
             addHatRows(hatsData);
-            
-            const tableBody = document.getElementById("intersection-table-body");
-            for (let i = 0; i < hatsData.length; i++){
-                let newRow = document.createElement("tr");
-
-                let idCell = document.createElement("td");
-                idCell.innerHTML = hatsData[i].character_hatID;
-                newRow.appendChild(idCell);
-
-                let characterCell = document.createElement("td");
-                characterCell.innerHTML = hatsData[i].characterName;
-                characterCell.setAttribute("character-id", hatsData[i].characterID);
-                newRow.appendChild(characterCell);
-
-                let hatCell = document.createElement("td");
-                hatCell.innerHTML = hatsData[i].hatName;
-                hatCell.setAttribute("hat-id", hatsData[i].hatID);
-                newRow.appendChild(hatCell);
-
-                tableBody.appendChild(newRow);
-            }
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -120,10 +113,6 @@ function deleteHatRows(characterID){
 
 // adds rows to the intersection table
 function addHatRows(data){
-    /*console.log("hello there");
-    console.log(data);
-    //const intersectionTable = document.getElementById("intersection-table");
-    //const tableBody = intersectionTable.getElementsByTagName("tbody")[0];
     const tableBody = document.getElementById("intersection-table-body");
     for (let i = 0; i < data.length; i++){
         let newRow = document.createElement("tr");
@@ -144,12 +133,10 @@ function addHatRows(data){
 
         tableBody.appendChild(newRow);
     }
-    console.log("good bye");
-    */
 }
 
 
-
+// fills update form with character data when edit button is clicked
 function editCharacter(characterID){
     const updateCharacterSelect = document.getElementById("update-character-id");
     updateCharacterSelect.value = characterID;
@@ -157,7 +144,7 @@ function editCharacter(characterID){
 }
 
 
-// fills update form with character data (characterID string)
+// fills update form with character data (characterID should be a string)
 function fillUpdateForm(characterID){
     // characters table
     const table = document.getElementById("character-table");

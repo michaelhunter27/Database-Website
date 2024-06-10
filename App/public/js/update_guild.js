@@ -1,3 +1,16 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  update_guild.js
+  client side code for updating a guild
+*/
+/*
+  Code citation:
+    Code for the function updateGuildRow and the anonymous function passed to updateGuildForm.addEventListener
+    is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 let updateGuildForm = document.getElementById("update-guild-form-content");
 
 updateGuildForm.addEventListener("submit", function (e) {

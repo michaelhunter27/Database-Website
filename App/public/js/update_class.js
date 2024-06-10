@@ -1,3 +1,16 @@
+/* 
+  Michael Hunter and Ryan Giard
+  CS 340 group 91
+  update_class.js
+  client side code for updating a class
+*/
+/*
+  Code citation:
+    Code for the function updateRow and the anonymous function passed to updateClassForm.addEventListener
+    is adapted from the nodejs starter app.
+    https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 // get update class form
 let updateClassForm = document.getElementById("update-class-form");
 
